@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lê Ngô Huy – Kỹ Sư Xây Dựng</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { font-family: 'Be Vietnam Pro', sans-serif; }
+
+    :root {
+      --red: #c0392b;
+      --dark: #1a1a2e;
+      --gray: #f5f5f5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+    }
+
+    /* ===== HERO HEADER ===== */
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(192,57,43,0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 20%, rgba(52,152,219,0.1) 0%, transparent 40%);
+      animation: bgMove 8s ease-in-out infinite alternate;
+    }
+    @keyframes bgMove {
+      0%   { transform: translate(0,0); }
+      100% { transform: translate(30px, 20px); }
+    }
+
+    .avatar-ring {
+      background: linear-gradient(135deg, #c0392b, #e74c3c, #ff6b6b, #c0392b);
+      padding: 4px;
+      border-radius: 50%;
+      animation: spinRing 6s linear infinite;
+      box-shadow: 0 0 30px rgba(192,57,43,0.6), 0 0 60px rgba(192,57,43,0.3);
+    }
+    @keyframes spinRing {
+      0%   { background: linear-gradient(0deg, #c0392b, #e74c3c, #ff6b6b, #c0392b); }
+      100% { background: linear-gradient(360deg, #c0392b, #e74c3c, #ff6b6b, #c0392b); }
+    }
+    .avatar-inner {
+      border-radius: 50%;
+      overflow: hidden;
+      background: #fff;
+      padding: 3px;
+    }
+    .avatar-inner img {
+      border-radius: 50%;
+      display: block;
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ===== NAME TITLE ===== */
+    .name-gradient {
+      background: linear-gradient(90deg, #fff 0%, #ffd6d6 50%, #ffb3b3 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .title-line {
+      display: inline-block;
+      position: relative;
+    }
+    .title-line::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #c0392b, transparent);
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: rgba(255,255,255,0.97);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    /* ===== SECTION HEADING ===== */
+    .sec-head {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .sec-head .bar {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #c0392b, transparent);
+    }
+    .sec-head .icon-box {
+      width: 32px;
+      height: 32px;
+      background: #c0392b;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== SKILL BAR ===== */
+    .skill-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .skill-track {
+      height: 6px;
+      background: #eee;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #c0392b, #e74c3c);
+      width: 0;
+      transition: width 1.4s cubic-bezier(.22,1,.36,1);
+    }
+
+    /* ===== TIMELINE ===== */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 6px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #c0392b, #fadbd8);
+    }
+    .tl-item {
+      position: relative;
+      padding-left: 38px;
+      margin-bottom: 24px;
+    }
+    .tl-dot {
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #c0392b;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px #c0392b;
+    }
+    .tl-year {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #c0392b;
+      background: #fdf2f2;
+      border: 1px solid #f5c6c6;
+      border-radius: 99px;
+      padding: 1px 8px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .tl-company {
+      font-size: 0.75rem;
+      color: #666;
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    /* ===== CERT BADGE ===== */
+    .cert-badge {
+      background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+      border: 1px solid #f5c6c6;
+      border-left: 4px solid #c0392b;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    /* ===== SOFTWARE CHIPS ===== */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fdf2f2;
+      border: 1px solid #f5c6c6;
+      color: #c0392b;
+      border-radius: 99px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 3px;
+      transition: background 0.2s;
+    }
+    .chip:hover { background: #c0392b; color: white; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26,26,46,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(192,57,43,0.3);
+    }
+    .nav-link {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .nav-link:hover { color: white; background: rgba(192,57,43,0.3); }
+
+    /* ===== CONTACT ITEM ===== */
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #c0392b, #e74c3c);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== STAT CARD ===== */
+    .stat-card {
+      text-align: center;
+      padding: 20px 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff6b6b, #ffd6d6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== SCROLL ANIMATION ===== */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .avatar-inner img { width: 130px; height: 130px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+    <span class="text-white font-bold text-sm tracking-widest uppercase">LÊ NGÔ HUY</span>
+    <div class="flex flex-wrap gap-1">
+      <a href="#about" class="nav-link">Giới thiệu</a>
+      <a href="#edu" class="nav-link">Học vấn</a>
+      <a href="#exp" class="nav-link">Kinh nghiệm</a>
+      <a href="#skills" class="nav-link">Kỹ năng</a>
+      <a href="#cert" class="nav-link">Chứng chỉ</a>
+      <a href="#contact" class="nav-link">Liên hệ</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero py-16 md:py-24" id="top">
+  <div class="relative z-10 max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
+    <!-- Avatar -->
+    <div class="flex-shrink-0 flex flex-col items-center gap-4">
+      <div class="avatar-ring">
+        <div class="avatar-inner">
+          <img src="huy.jpg" alt="Lê Ngô Huy" onerror="this.src='https://ui-avatars.com/api/?name=Le+Ngo+Huy&size=200&background=c0392b&color=fff&bold=true'" />
+        </div>
+      </div>
+      <div class="flex gap-3 mt-2">
+        <a href="mailto:lengohuy306@gmail.com" class="w-9 h-9 rounded-full bg-red-700 hover:bg-red-600 flex items-center justify-center text-white transition-all" title="Email">
+          <i class="fas fa-envelope text-sm"></i>
+        </a>
+        <a href="tel:0398599063" class="w-9 h-9 rounded-full bg-red-700 hover:bg-red-600 flex items-center justify-center text-white transition-all" title="Điện thoại">
+          <i class="fas fa-phone text-sm"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="text-center md:text-left">
+      <p class="text-red-400 text-xs font-700 tracking-widest uppercase mb-2">
+        <i class="fas fa-hard-hat mr-1"></i>Kỹ Sư Xây Dựng
+      </p>
+      <h1 class="text-5xl md:text-6xl font-black mb-4 name-gradient leading-tight">
+        LÊ NGÔ HUY
+      </h1>
+      <p class="text-gray-300 text-base leading-relaxed max-w-xl mb-6">
+        Mong muốn tìm được công việc phù hợp để có thể cống hiến, phát triển và vượt qua giới hạn bản thân, phát triển kinh tế xã hội.
+      </p>
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-3 max-w-xs mx-auto md:mx-0">
+        <div class="stat-card">
+          <div class="stat-number">6+</div>
+          <div class="text-gray-400 text-xs font-500">Năm KN</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">4</div>
+          <div class="text-gray-400 text-xs font-500">Dự án</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="text-gray-400 text-xs font-500">Chứng chỉ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="max-w-5xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-6">
+
+  <!-- ===== LEFT COLUMN ===== -->
+  <div class="md:col-span-1 flex flex-col gap-6">
+
+    <!-- GIỚI THIỆU NHANH / LIÊN HỆ -->
+    <div class="card p-6 fade-in" id="contact">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-address-card"></i></div>
+        <span>Liên Hệ</span>
+        <div class="bar"></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+        <div>
+          <div class="text-xs text-gray-400 font-500">Điện thoại</div>
+          <a href="tel:0398599063" class="text-sm font-700 text-gray-800 hover:text-red-600">039.859.9063</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+          <div class="text-xs text-gray-400 font-500">Email</div>
+          <a href="mailto:lengohuy306@gmail.com" class="text-sm font-700 text-gray-800 hover:text-red-600 break-all">lengohuy306@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+          <div class="text-xs text-gray-400 font-500">Khu vực</div>
+          <div class="text-sm font-700 text-gray-800">Cần Thơ, Việt Nam</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HỌC VẤN -->
+    <div class="card p-6 fade-in" id="edu">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
+        <span>Học Vấn</span>
+        <div class="bar"></div>
+      </div>
+      <div class="mb-1 flex items-center gap-2">
+        <i class="fas fa-university text-red-600 text-xs"></i>
+        <span class="text-sm font-800 text-gray-800">Trường Đại học Cần Thơ</span>
+      </div>
+      <div class="text-xs text-gray-500 mb-1 pl-5">Kỹ thuật xây dựng</div>
+      <div class="text-xs text-gray-400 pl-5 mb-2">2016 – 2021</div>
+      <div class="inline-flex items-center gap-1 bg-green-50 border border-green-200 text-green-700 rounded-full px-3 py-1 text-xs font-700 mb-3">
+        <i class="fas fa-star text-yellow-400"></i> Xếp loại: Giỏi
+      </div>
+      <div class="bg-blue-50 border border-blue-100 rounded-10 p-3 text-xs text-blue-700 leading-relaxed">
+        <i class="fas fa-book-reader mr-1"></i>
+        Hiện đang học <strong>Cao học</strong> chuyên ngành Kỹ thuật xây dựng
+      </div>
+    </div>
+
+    <!-- KỸ NĂNG -->
+    <div class="card p-6 fade-in" id="skills">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-tools"></i></div>
+        <span>Kỹ Năng</span>
+        <div class="bar"></div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <div>
+          <div class="skill-label">Quản lý</div>
+          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div>
+          <div class="skill-label">Thiết kế BIM / Kiến trúc / Kết cấu</div>
+          <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div>
+          <div class="skill-label">Thi công & Giám sát</div>
+          <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div>
+          <div class="skill-label">Bóc khối lượng & Dự toán</div>
+          <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+        </div>
+        <div>
+          <div class="skill-label">Kỹ năng mềm</div>
+          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHẦN MỀM -->
+    <div class="card p-6 fade-in">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-laptop-code"></i></div>
+        <span>Phần Mềm</span>
+        <div class="bar"></div>
+      </div>
+      <div class="flex flex-wrap">
+        <span class="chip"><i class="fas fa-calculator"></i> Etabs</span>
+        <span class="chip"><i class="fas fa-cube"></i> Sketchup</span>
+        <span class="chip"><i class="fas fa-palette"></i> Vray</span>
+        <span class="chip"><i class="fas fa-drafting-compass"></i> Revit</span>
+        <span class="chip"><i class="fas fa-pen-ruler"></i> Autocad</span>
+        <span class="chip"><i class="fas fa-file-word"></i> Word</span>
+        <span class="chip"><i class="fas fa-file-excel"></i> Excel</span>
+        <span class="chip"><i class="fas fa-file-powerpoint"></i> PowerPoint</span>
+      </div>
+    </div>
+
+    <!-- NGÔN NGỮ -->
+    <div class="card p-6 fade-in">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-language"></i></div>
+        <span>Ngôn Ngữ</span>
+        <div class="bar"></div>
+      </div>
+      <div class="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-12 p-3">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🇬🇧</span>
+          <div>
+            <div class="text-sm font-700 text-gray-800">Tiếng Anh</div>
+            <div class="text-xs text-gray-500">B1 Vstep</div>
+          </div>
+        </div>
+        <div class="bg-blue-600 text-white text-xs font-700 rounded-full px-3 py-1">B1</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== RIGHT COLUMN ===== -->
+  <div class="md:col-span-2 flex flex-col gap-6">
+
+    <!-- GIỚI THIỆU -->
+    <div class="card p-6 fade-in" id="about">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-user"></i></div>
+        <span>Giới Thiệu</span>
+        <div class="bar"></div>
+      </div>
+      <p class="text-gray-700 text-sm leading-7 border-l-4 border-red-500 pl-4 bg-red-50 py-3 rounded-r-10">
+        Mong muốn tìm được công việc phù hợp để có thể <strong>cống hiến, phát triển</strong> và vượt qua giới hạn bản thân, phát triển kinh tế xã hội. Với nền tảng học vấn vững chắc từ Đại học Cần Thơ và hơn 6 năm kinh nghiệm thực tiễn trong thiết kế kết cấu, giám sát và quản lý dự án xây dựng.
+      </p>
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        <div class="flex items-center gap-2 text-xs text-gray-600">
+          <i class="fas fa-check-circle text-red-500"></i>
+          <span>Thiết kế kết cấu & kiến trúc</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-600">
+          <i class="fas fa-check-circle text-red-500"></i>
+          <span>Giám sát & thi công</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-600">
+          <i class="fas fa-check-circle text-red-500"></i>
+          <span>Bóc khối lượng & dự toán</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-600">
+          <i class="fas fa-check-circle text-red-500"></i>
+          <span>Kinh doanh & phát triển dự án</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KINH NGHIỆM LÀM VIỆC -->
+    <div class="card p-6 fade-in" id="exp">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-briefcase"></i></div>
+        <span>Kinh Nghiệm Làm Việc</span>
+        <div class="bar"></div>
+      </div>
+      <div class="timeline">
+
+        <!-- Job 1 -->
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+            <h3 class="text-sm font-800 text-gray-900">Thiết kế kết cấu</h3>
+            <span class="tl-year">2020 – 2024</span>
+          </div>
+          <div class="tl-company"><i class="fas fa-building mr-1 text-red-400"></i>Công ty tư vấn & xây dựng Trung Nam</div>
+          <p class="text-xs text-gray-600 leading-6 mt-2">
+            Kỹ sư thiết kế, thi công, giám sát, xây dựng, bóc khối lượng dự toán, lập hồ sơ mời thầu, hỗ trợ giám sát tác giá công trình, giám sát công trình.
+          </p>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+            <h3 class="text-sm font-800 text-gray-900">Chủ trì thiết kế kết cấu / Kiến trúc</h3>
+            <span class="tl-year">2024 – 2025</span>
+          </div>
+          <div class="tl-company"><i class="fas fa-building mr-1 text-red-400"></i>Công ty TNHH Xây dựng Nhơn Ái</div>
+          <p class="text-xs text-gray-600 leading-6 mt-2">
+            Kỹ sư thiết kế kết cấu, kiến trúc, chủ trì thiết kế, bóc khối lượng dự toán, giám sát công trình.
+          </p>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+            <h3 class="text-sm font-800 text-gray-900">Nhân viên kinh doanh / Phó phòng thiết kế kết cấu</h3>
+            <span class="tl-year">2025 – 2026</span>
+          </div>
+          <div class="tl-company"><i class="fas fa-building mr-1 text-red-400"></i>Công ty cổ phần An Nhiên House</div>
+          <p class="text-xs text-gray-600 leading-6 mt-2">
+            Nhân viên kinh doanh, tìm kiếm và ký kết hợp đồng với khách hàng, quản lý nhân sự thiết kế, thi công, giám sát, xây dựng, phát triển, xây dựng kế hoạch kinh doanh của công ty. Thiết kế kết cấu, chủ trì thiết kế kết cấu.
+          </p>
+        </div>
+
+        <!-- Job 4 -->
+        <div class="tl-item" style="margin-bottom:0">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+            <h3 class="text-sm font-800 text-gray-900">FreeLancer Thiết Kế</h3>
+            <span class="tl-year">2020 – 2026</span>
+          </div>
+          <div class="tl-company">
+            <i class="fas fa-laptop-house mr-1 text-red-400"></i>
+            Xây nhà online xNao · Công ty TNHH TM&DV An Trường Phát · Công ty TNHH Nhật Minh Landscape
+          </div>
+          <p class="text-xs text-gray-600 leading-6 mt-2">
+            Thiết kế kiến trúc và kết cấu cho các dự án dân dụng, nhà phố và cảnh quan.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CHỨNG CHỈ -->
+    <div class="card p-6 fade-in" id="cert">
+      <div class="sec-head">
+        <div class="icon-box"><i class="fas fa-certificate"></i></div>
+        <span>Chứng Chỉ Hành Nghề Cấp 3</span>
+        <div class="bar"></div>
+      </div>
+      <div class="cert-badge">
+        <div class="flex items-start gap-3">
+          <div class="text-3xl mt-1">🏅</div>
+          <div>
+            <h4 class="text-sm font-800 text-gray-900 mb-1">Chứng chỉ thiết kế, giám sát, định giá</h4>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="inline-flex items-center gap-1 bg-red-100 text-red-700 text-xs font-700 rounded-full px-3 py-1">
+                <i class="fas fa-calendar-alt"></i> 2023 – 2028
+              </span>
+              <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-700 rounded-full px-3 py-1">
+                <i class="fas fa-check-circle"></i> Còn hiệu lực
+              </span>
+            </div>
+            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+              Chứng chỉ hành nghề cấp 3 – đủ điều kiện thiết kế, giám sát thi công và định giá công trình xây dựng theo quy định của Nhà nước.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="text-center py-8 text-gray-400 text-xs">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="border-t border-gray-700 pt-6">
+      <p class="font-700 text-white mb-1">Lê Ngô Huy – Kỹ Sư Xây Dựng</p>
+      <p>📧 lengohuy306@gmail.com &nbsp;|&nbsp; 📞 039.859.9063</p>
+      <p class="mt-2 text-gray-600">© 2026 · Designed with ❤️</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  // --- Scroll fade-in ---
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // --- Skill bars ---
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+        skillObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.card').forEach(card => skillObserver.observe(card));
+
+  // --- Typed text effect in hero ---
+  const roles = ['Kỹ Sư Kết Cấu', 'Kỹ Sư Giám Sát', 'Chuyên Gia BIM', 'Kỹ Sư Xây Dựng'];
+  let ri = 0, ci = 0, deleting = false;
+  const el = document.querySelector('.hero .text-red-400');
+  if (el) {
+    const prefix = '<i class="fas fa-hard-hat mr-1"></i>';
+    function type() {
+      const role = roles[ri];
+      if (!deleting) {
+        el.innerHTML = prefix + role.slice(0, ++ci);
+        if (ci === role.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        el.innerHTML = prefix + role.slice(0, --ci);
+        if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+      }
+      setTimeout(type, deleting ? 60 : 100);
+    }
+    setTimeout(type, 1000);
+  }
+</script>
+</body>
+</html>
